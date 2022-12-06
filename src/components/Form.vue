@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { DirectiveBinding, ref } from "vue";
+import { DirectiveBinding, ref, watch } from "vue";
 
 const userName = ref<string>("");
 const from = ref<string>("japan");
+const interest = ref([]);
 
+watch(interest, () => {
+  console.log("interest", interest.value);
+});
 // v-focus
 const vFocus = {
   // マウント時に挙動
@@ -18,8 +22,8 @@ const vFocus = {
 
 const onSubmit = () => {
   console.log(userName.value);
-  console.log("submit");
   console.log(from.value);
+  interest.value = [];
 };
 </script>
 
@@ -50,15 +54,33 @@ const onSubmit = () => {
     <div class="form-control">
       <h2>What are you interested in?</h2>
       <div>
-        <input id="interest-react" name="interest" type="checkbox" />
+        <input
+          id="interest-react"
+          name="interest"
+          type="checkbox"
+          value="react"
+          v-model="interest"
+        />
         <label for="interest-react">React.js</label>
       </div>
       <div>
-        <input id="interest-vue" name="interest" type="checkbox" />
+        <input
+          id="interest-vue"
+          name="interest"
+          type="checkbox"
+          value="vue"
+          v-model="interest"
+        />
         <label for="interest-vue">Vue.js</label>
       </div>
       <div>
-        <input id="interest-angular" name="interest" type="checkbox" />
+        <input
+          id="interest-angular"
+          name="interest"
+          type="checkbox"
+          value="angular"
+          v-model="interest"
+        />
         <label for="interest-angular">Angular.js</label>
       </div>
     </div>
