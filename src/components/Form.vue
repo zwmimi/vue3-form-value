@@ -8,6 +8,9 @@ const interest = ref([]);
 watch(interest, () => {
   console.log("interest", interest.value);
 });
+
+const radios = ref([]);
+
 // v-focus
 const vFocus = {
   // マウント時に挙動
@@ -23,6 +26,7 @@ const vFocus = {
 const onSubmit = () => {
   console.log(userName.value);
   console.log(from.value);
+  console.log(radios.value);
   interest.value = [];
 };
 </script>
@@ -87,15 +91,33 @@ const onSubmit = () => {
     <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
-        <input id="how-video" name="how" type="radio" />
+        <input
+          id="how-video"
+          name="how"
+          type="radio"
+          value="video"
+          v-model="radios"
+        />
         <label for="how-video">Video Courses</label>
       </div>
       <div>
-        <input id="how-books" name="how" type="radio" />
+        <input
+          id="how-books"
+          name="how"
+          type="radio"
+          value="books"
+          v-model="radios"
+        />
         <label for="how-books">Books</label>
       </div>
       <div>
-        <input id="how-other" name="how" type="radio" />
+        <input
+          id="how-other"
+          name="how"
+          type="radio"
+          value="other"
+          v-model="radios"
+        />
         <label for="how-other">Other</label>
       </div>
     </div>
