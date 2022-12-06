@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { DirectiveBinding, ref, watch } from "vue";
+import Rating from "./Rating.vue";
 
 const userName = ref<string>("");
 const from = ref<string>("japan");
 const interest = ref([]);
+const ratings = ref<string>("");
 
 watch(interest, () => {
   console.log("interest", interest.value);
@@ -27,6 +29,7 @@ const onSubmit = () => {
   console.log(userName.value);
   console.log(from.value);
   console.log(radios.value);
+  console.log(ratings.value);
   interest.value = [];
 };
 </script>
@@ -120,6 +123,9 @@ const onSubmit = () => {
         />
         <label for="how-other">Other</label>
       </div>
+    </div>
+    <div>
+      <Rating v-model="ratings" />
     </div>
     <div>
       <button @click.prevent="onSubmit">Save Data</button>
