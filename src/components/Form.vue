@@ -1,14 +1,25 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { DirectiveBinding, ref } from "vue";
 
 const userName = ref<string>("");
+const from = ref<string>("japan");
 
 // v-focus
 const vFocus = {
   // マウント時に挙動
-  mounted: (el: HTMLElement) => {
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => {
     el.focus();
+
+    if (binding.modifiers.alert) {
+      el.style.backgroundColor = "pink";
+    }
   },
+};
+
+const onSubmit = () => {
+  console.log(userName.value);
+  console.log("submit");
+  console.log(from.value);
 };
 </script>
 
@@ -16,7 +27,13 @@ const vFocus = {
   <form>
     <div class="form-control">
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" v-focus />
+      <input
+        v-model="userName"
+        id="user-name"
+        name="user-name"
+        type="text"
+        v-focus.alert
+      />
     </div>
     <div class="form-control">
       <label for="age">Your Age</label>
@@ -24,7 +41,7 @@ const vFocus = {
     </div>
     <div class="form-control">
       <label for="from">Where Are you from?</label>
-      <select id="from" name="from">
+      <select id="from" name="from" v-model="from">
         <option value="japan">Japan</option>
         <option value="china">China</option>
         <option value="others">Others</option>
@@ -61,7 +78,7 @@ const vFocus = {
       </div>
     </div>
     <div>
-      <button>Save Data</button>
+      <button @click.prevent="onSubmit">Save Data</button>
     </div>
   </form>
 </template>
